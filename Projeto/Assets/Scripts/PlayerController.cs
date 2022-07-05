@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
 public class PlayerController : MonoBehaviour
+
 {
+    public int Coin = 0;
+    public TMP_Text coinText;
     public float moveSpeed;
     public float maxvelocity;
     public float rayDistance;
@@ -131,7 +135,15 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(start:transform.position, dir:Vector3.down * rayDistance, Color.red);
     }
 
-
-
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            Coin++;
+            coinText.text = Coin.ToString();
+            Destroy(other.gameObject);
+        }
+        
+    }
 }
    
